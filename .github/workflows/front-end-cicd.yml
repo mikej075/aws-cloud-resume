@@ -15,7 +15,7 @@ jobs:
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2.0
         with:
-          publish-dir: ./cloudchallenge  # Replace with your folder name
+          publish-dir: ./website  # Replace with your folder name
           production-branch: main
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deployed from GitHub Actions"
