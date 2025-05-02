@@ -1,21 +1,26 @@
-name: Uplode website to S3
+name: Deploy to Netlify
 
 on:
   push:
     branches:
-      -main
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@master
-    - uses: jakejarvis/s3-sync-action@v0.5.1
-    with:
-      args: --acl public-read --follow-symslinks --delete
-    env:
-    AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    AWS_SECRECTS_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
-    AWS_REGION: 'us-east-1'
-    SOURCE_DIR: 'MikeCloudResumeComplete'
+      - uses: actions/checkout@v3
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v2.0
+        with:
+          publish-dir: ./cloudchallenge  # Use your "website" directory here
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deployed from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: false
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
