@@ -4,7 +4,7 @@ resource "aws_lambda_function" "myfunc" {
   function_name    = "myfunc"
   role             = aws_iam_role.iam_for_lambda.arn
   handler          = "func.handler"
-  runtime          = "python3.8"
+  runtime          = "python3.9"
 }
 
 resource "aws_iam_role" "iam_for_lambda" {
@@ -51,7 +51,7 @@ resource "aws_iam_policy" "iam_policy_for_resume_project" {
             "dynamodb:UpdateItem",
 			      "dynamodb:GetItem"
           ],
-          "Resource" : "arn:aws:dynamodb:*:*:table/resume-challenge"
+          "Resource" : "arn:aws:dynamodb:*:*:table/cloudresume"
         },
       ]
   })
